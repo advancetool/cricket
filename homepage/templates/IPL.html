@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+<head>
+    <link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
+	
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jPushMenu.js"></script>
+    <script src="js/counter.js"></script>
+    <script src="js/jquery.scrollUp.min.js"></script>
+    
+    <script type="text/javascript">
+		$(window).load(function() {
+			$(".loader").fadeOut("slow");
+		})
+	</script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <meta charset="utf-8">
+    <title>First Innings Score Predictor</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='ipl-favicon.ico') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://kit.fontawesome.com/5f3f547070.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+	
+</head>
+
+<body>
+    <div class="navbar">
+ 
+        <!-- Navbar logo -->
+        <div class="nav-header">
+          <div class="nav-logo">
+            <a href="#">
+              <img src="logo.png" width="100px" alt="logo">
+            </a>
+          </div>
+        </div>
+         
+        <!-- responsive navbar toggle button -->
+        <input type="checkbox" id="nav-check">
+        <div class="nav-btn">
+          <label for="nav-check">
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>
+        </div>
+       
+        <!-- Navbar items -->
+        <div class="nav-links">
+          <!-- <a href="home.html">Home</a>  -->
+          <a href="http://127.0.0.1:5000/"><span> IPL</span></a>
+		      <a href="http://127.0.0.1:5000/T-20">T-20</a>       
+          <a href="http://127.0.0.1:5000/OneDay">OneDay</a>
+          <a href="http://127.0.0.1:5000/Players">Players</a>
+          <button class="loginBtn">Add Players</button>
+
+          
+        </div>
+       
+    </div>
+      
+ <!-- Website Title -->
+    <div class="container">
+        <h2 class='container-heading'><span class='heading_first'>First Innings Score Predictor for Indian Premier
+                League (IPL) </span>
+            <div class='description'>
+                <p style="font-size: 20px;"></p>
+            </div>
+    </div>
+
+    <div style="text-align: center;">
+        <h4 style='color:black'>{{ val }}</h4>
+    </div>
+
+    <!-- Prediction Area -->
+    <div class="prediction-area" style='margin-top: 45px;'>
+
+        <!-- IPL Banner - 1 -->
+        <div class='ipl-banner-left'>
+            <div class="slider-frame">
+                <div class="slide-images-up">
+                    <!-- Image-1 -->
+                    <div class="image-container">
+                        <img class="image-width" src="{{ url_for('static', filename='mi.jpg') }}" alt="Mumbai Indians">
+                    </div>
+                    <!-- Image-2 -->
+                    <div class="image-container">
+                        <img class="image-width" src="{{ url_for('static', filename='srh.png') }}"
+                            alt="Sunrisers Hyderabad">
+                    </div>
+                    <!-- Image-3 -->
+                    <div class="image-container">
+                        <img class="image-width" src="{{ url_for('static', filename='rcb.png') }}"
+                            alt="Royal Challengers Bangalore">
+                    </div>
+                    <!-- Image-4 -->
+                    <div class="image-container">
+                        <img class="image-width" src="{{ url_for('static', filename='dc.png') }}" alt="Delhi Capitals">
+                    </div>
+                    <!-- Image-5 -->
+                    <div class="image-container">
+                        <img class="image-width" src="{{ url_for('static', filename='rr.png') }}"
+                            alt="Rajasthan Royals">
+                    </div>
+                    <!-- Image-6 -->
+                    <div class="image-container">
+                        <img class="image-width" src="{{ url_for('static', filename='kkr.jpg') }}"
+                            alt="Kolkata Knight Riders">
+                    </div>
+                    <!-- Image-7 -->
+                    <div class="image-container">
+                        <img class="image-width" src="{{ url_for('static', filename='kxip.png') }}"
+                            alt="Kings XI Punjab">
+                    </div>
+                    <!-- Image-8 -->
+                    <div class="image-container">
+                        <img class="image-width" src="{{ url_for('static', filename='csk.png') }}"
+                            alt="Chennai Super Kings">
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Prediction Form -->
+        <div class='div2'>
+            <form action="predict" method="POST">
+                <!-- Batting Team Dropdown -->
+                <select class="form-input align-center" name="batting-team">
+                    <option value="none">--- Select a Batting team ---</option>
+                    <option value="Mumbai Indians">Mumbai Indians</option>
+                    <option value="Kolkata Knight Riders">Kolkata Knight Riders</option>
+                    <option value="Chennai Super Kings">Chennai Super Kings</option>
+                    <option value="Rajasthan Royals">Rajasthan Royals</option>
+                    <option value="Kings XI Punjab">Kings XI Punjab</option>
+                    <option value="Royal Challengers Bangalore">Royal Challengers Bangalore</option>
+                    <option value="Delhi Capitals">Delhi Capitals</option>
+                    <option value="Sunrisers Hyderabad">Sunrisers Hyderabad</option>
+                </select><br>
+
+                <!-- Bowling Team Dropdown -->
+                <select class="form-input align-center" name="bowling-team">
+                    <option value="none">--- Select a Bowling team ---</option>
+                    <option value="Mumbai Indians">Mumbai Indians</option>
+                    <option value="Kolkata Knight Riders">Kolkata Knight Riders</option>
+                    <option value="Chennai Super Kings">Chennai Super Kings</option>
+                    <option value="Rajasthan Royals">Rajasthan Royals</option>
+                    <option value="Kings XI Punjab">Kings XI Punjab</option>
+                    <option value="Royal Challengers Bangalore">Royal Challengers Bangalore</option>
+                    <option value="Delhi Capitals">Delhi Capitals</option>
+                    <option value="Sunrisers Hyderabad">Sunrisers Hyderabad</option>
+                </select><br>
+
+                <!-- Venue -->
+                <select class="form-input align-center" name="venue">
+                    <option value="none">--- Select a Venue ---</option>
+                    <option value="ACA-VDCA Stadium, Visakhapatnam">ACA-VDCA Stadium, Visakhapatnam</option>
+                    <option value="Barabati Stadium, Cuttack">Barabati Stadium, Cuttack</option>
+                    <option value="Dr DY Patil Sports Academy, Mumbai">Dr DY Patil Sports Academy, Mumbai</option>
+                    <option value="Dubai International Cricket Stadium, Dubai">Dubai International Cricket Stadium,
+                        Dubai</option>
+                    <option value="Eden Gardens, Kolkata">Eden Gardens, Kolkata</option>
+                    <option value="Feroz Shah Kotla, Delhi">Feroz Shah Kotla, Delhi</option>
+                    <option value="Himachal Pradesh Cricket Association Stadium, Dharamshala">Himachal Pradesh Cricket
+                        Association Stadium, Dharamshala</option>
+                    <option value="Holkar Cricket Stadium, Indore">Holkar Cricket Stadium, Indore</option>
+                    <option value="JSCA International Stadium Complex, Ranchi">JSCA International Stadium Complex,
+                        Ranchi</option>
+                    <option value="M Chinnaswamy Stadium, Bangalore">M Chinnaswamy Stadium, Bangalore</option>
+                    <option value="MA Chidambaram Stadium, Chepauk">MA Chidambaram Stadium, Chepauk</option>
+                    <option value="Maharashtra Cricket Association Stadium, Pune">Maharashtra Cricket Association
+                        Stadium, Pune</option>
+                    <option value="Punjab Cricket Association Stadium, Mohali">Punjab Cricket Association Stadium,
+                        Mohali</option>
+                    <option value="Raipur International Cricket Stadium, Raipur">Raipur International Cricket Stadium,
+                        Raipur</option>
+                    <option value="Rajiv Gandhi International Stadium, Uppal">Rajiv Gandhi International Stadium, Uppal
+                    </option>
+                    <option value="Sardar Patel Stadium, Motera">Sardar Patel Stadium, Motera</option>
+                    <option value="Sawai Mansingh Stadium, Jaipur">Sawai Mansingh Stadium, Jaipur</option>
+                    <option value="Sharjah Cricket Stadium, Sharjah">Sharjah Cricket Stadium, Sharjah</option>
+                    <option value="Sheikh Zayed Stadium, Abu-Dhabi">Sheikh Zayed Stadium, Abu-Dhabi</option>
+                    <option value="Wankhede Stadium, Mumbai">Wankhede Stadium, Mumbai</option>
+                </select><br>
+
+                <input class="form-input" type="text" name="overs" placeholder="Overs (>= 5.0) eg. 7.2"><br>
+
+                <input class="form-input" type="text" name="runs" placeholder="Runs eg. 64"><br>
+
+                <input class="form-input" type="text" name="wickets" placeholder="Wickets eg. 4"><br>
+
+                <input class="form-input" type="text" name="runs_in_prev_5"
+                    placeholder="Runs scored in previous 5 Overs eg. 42"><br>
+
+                <input class="form-input" type="text" name="wickets_in_prev_5"
+                    placeholder="Wickets taken in previous 5 Overs eg. 3"><br>
+
+                <input type="submit" class="myButton" value="Predict Score">
+            </form>
+        </div>
+
+        <!-- IPL Banner - 2 -->
+        <div class='ipl-banner-right'>
+
+            <div class="slider-frame">
+                <div class="slide-images-down">
+
+                    <!-- Image-1 -->
+                    <div class="image-container">
+                        <img class="image-width" src="{{ url_for('static', filename='mi.jpg') }}" alt="Mumbai Indians">
+                    </div>
+                    <!-- Image-2 -->
+                    <div class="image-container">
+                        <img class="image-width" src="{{ url_for('static', filename='srh.png') }}"
+                            alt="Sunrisers Hyderabad">
+                    </div>
+                    <!-- Image-3 -->
+                    <div class="image-container">
+                        <img class="image-width" src="{{ url_for('static', filename='rcb.png') }}"
+                            alt="Royal Challengers Bangalore">
+                    </div>
+                    <!-- Image-4 -->
+                    <div class="image-container">
+                        <img class="image-width" src="{{ url_for('static', filename='dc.png') }}" alt="Delhi Capitals">
+                    </div>
+                    <!-- Image-5 -->
+                    <div class="image-container">
+                        <img class="image-width" src="{{ url_for('static', filename='kkr.jpg') }}"
+                            alt="Kolkata Knight Riders">
+                    </div>
+                    <!-- Image-6 -->
+                    <div class="image-container">
+                        <img class="image-width" src="{{ url_for('static', filename='rr.png') }}"
+                            alt="Rajasthan Royals">
+                    </div>
+                    <!-- Image-7 -->
+                    <div class="image-container">
+                        <img class="image-width" src="{{ url_for('static', filename='kxip.png') }}"
+                            alt="Kings XI Punjab">
+                    </div>
+                    <!-- Image-8 -->
+                    <div class="image-container">
+                        <img class="image-width" src="{{ url_for('static', filename='csk.png') }}"
+                            alt="Chennai Super Kings">
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    <footer
+        style="position: fixed; bottom: 0; width: 100%;background-color: black;color: ivory;text-align: center;padding-top: 5px;padding-bottom: 5px;">
+        Made with ❤️ by Anil Rode.
+    </footer>
+
+    <script type="text/javascript">
+    
+        $(document).ready(function(){
+          $('.toggle-menu').jPushMenu({closeOnClickLink: false});
+          $('.dropdown-toggle').dropdown();
+        });
+        
+      </script>
+      
+      <script type="text/javascript">
+      
+          var terms = ["simple", "business", "beautiful"];
+  
+          function rotateTerm() {
+                var ct = $("#rotate").data("term") || 0;
+                $("#rotate").data("term", ct == terms.length -1 ? 0 : ct + 1).text(terms[ct]).fadeIn()
+                    .delay(1000).fadeOut(200, rotateTerm);
+          }
+          $(rotateTerm);
+  
+      </script>
+  
+      
+      <script type="text/javascript">
+  
+        jQuery('.counter-item').appear(function() {
+          jQuery('.counter-number').countTo();
+          jQuery(this).addClass('funcionando');
+              console.log('funcionando');
+        });
+    
+      </script>
+      
+      <script type="text/javascript">
+      
+          $(document).ready(function () {
+              $("#clients-slider").carousel({
+                  interval: 5000 //TIME IN MILLI SECONDS
+              });
+          });
+          
+      </script>
+      
+      
+      <script type="text/javascript">
+      
+      $(function () {
+            $.scrollUp({
+              scrollName: 'scrollUp', // Element ID
+              topDistance: '300', // Distance from top before showing element (px)
+              topSpeed: 600, // Speed back to top (ms)
+              animation: 'fade', // Fade, slide, none
+              animationInSpeed: 200, // Animation in speed (ms)
+              animationOutSpeed: 200, // Animation out speed (ms)
+              activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
+              scrollImg: true,
+            });
+      });
+     </script>
+
+<style>
+
+
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body{
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-image: url(background-img.jpg);
+      background-size: cover;
+      background-attachment: fixed;
+    }
+    .navbar{
+      height: 70px;
+      width: 100%;
+      padding: 14px 30px;
+      background-color: #eaefe0ee;
+      position: relative;
+    }
+    .navbar .nav-header{
+      display: inline;
+    }
+    .navbar .nav-header .nav-logo{
+      display: inline-block;
+      margin-top: -7px;
+    }
+    .navbar .nav-links{
+      display: inline;
+      float: right;
+      font-size: 18px;
+    }
+     
+    .navbar .nav-links .loginBtn{
+      display: inline-block;
+      padding: 5px 15px;
+      margin-left: 20px;
+      font-size: 17px;
+      color: rgb(9, 14, 90);
+    }
+    .navbar .nav-links a{
+      padding: 10px 12px;
+      text-decoration: none;
+      font-weight: 550;
+      color: rgb(18, 17, 17);
+    }
+    /* Hover effects */
+    .navbar .nav-links a:hover{
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+     
+    /* responsive navbar toggle button */
+    .navbar #nav-check, .navbar .nav-btn{
+      display: none;
+    }
+     
+    @media (max-width:700px) {
+      .navbar .nav-btn{
+        display: inline-block;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+      }
+      .navbar .nav-btn label {
+        display: inline-block;
+        width: 80px;
+        height: 70px;
+        padding: 25px;
+      }
+      .navbar .nav-btn label span {
+        display: block;
+        height: 10px;
+        width: 25px;
+        border-top: 3px solid #eee;
+      }
+      .navbar .nav-btn label:hover, .navbar #nav-check:checked ~ .nav-btn label {
+        background-color: rgb(149, 153, 219);
+      }
+      .navbar .nav-links{
+        position: absolute;
+        display: block;
+        text-align: center;
+        width: 50%;
+        background-color: rgb(138, 151, 154);
+        transition: all 0.3s ease-in;
+        overflow-y: hidden;
+        top: 70px;
+        right: 0px;
+      }
+      .navbar .nav-links a {
+        display: block;
+      }
+     
+      /* when nav toggle button not checked */
+      .navbar #nav-check:not(:checked) ~ .nav-links {
+        height: 0px;
+      }
+     
+      /* when nav toggle button is checked */
+      .navbar #nav-check:checked ~ .nav-links {
+        height: calc(100vh - 70px);
+        overflow-y: auto;
+      }
+      .navbar .nav-links .loginBtn {
+        padding: 10px 40px ;
+        margin: 20px;
+        font-size:  18px;
+        font-weight: bold;
+        color: rgb(9, 14, 90);
+      }
+       
+     
+    }
+    </style>
+    
+
+</body>
+
+</html>
