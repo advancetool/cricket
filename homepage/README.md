@@ -1,6 +1,6 @@
 # Cricket Score-Predictor and Analysis 
 Hi,
-  I am Anil Rode from solapur i have done my master degree in FAMT college Ratanagri with aggregated 75% also i have done my Grudation in B.Sc(computer Science) in Solapur University with aggreagetd 89%.
+  
 
 - This is just another simple yet intresting project which can approximately predict an innings score based on the data from 2021 IPL season.  
 - I tried training three models:  
